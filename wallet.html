@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TravelWallet — Vaishnavi Solanki</title>
+  <link href="https://cdn.prod.website-files.com" rel="preconnect" crossorigin="anonymous">
+  <script type="text/javascript">WebFont.load && WebFont.load({ google: { families: ["Inter:400,500,600,700,900"] } });</script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #0b0b0b;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    ::selection { background: #fda228; }
+    ::-moz-selection { background: #fda228; }
+
+    /* ===== Header ===== */
+    .site-header {
+      width: 100%;
+      padding: 16px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255);
+      border-bottom: 1px solid rgba(60, 60, 60, 0.1);
+    }
+
+    .site-header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 0 16px;
+    }
+
+    .site-header__logo {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .site-header__logo-img {
+      max-height: 40px;
+      width: auto;
+      display: block;
+    }
+
+    .site-header__nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .site-header__link {
+      color: #000;
+      font-size: 14px;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .site-header__utils {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .site-header__cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 20px;
+      background-color: #000;
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    @media only screen and (max-width: 900px) {
+      .site-header__inner { flex-wrap: wrap; justify-content: center; }
+      .site-header__nav { order: 3; width: 100%; justify-content: center; gap: 40px; }
+      .site-header__cta { width: 100%; justify-content: center; }
+    }
+
+    /* ===== Shared section structure ===== */
+    .cs-section {
+      padding: 96px 0;
+    }
+
+    .cs-section.is--alt { background: #f5f5f5; }
+    .cs-section.is--rule { border-top: 1px solid #e5e5e5; }
+
+    .cs-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .project-image {
+      width: 100%;
+      height: auto;
+      margin-bottom: 80px;
+      border-radius: 8px;
+      display: block;
+    }
+
+    .cs-eyebrow {
+      font-size: 12px;
+      line-height: 12px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: #888888;
+      margin: 0 0 20px 0;
+      display: block;
+      font-weight: 400;
+    }
+
+    .cs-heading {
+      font-size: 48px;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      font-weight: 400;
+      color: #0b0b0b;
+      margin: 0 0 24px 0;
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .brand-dot {
+      width: 10px;
+      height: 10px;
+      background: #ff6b6b;
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+      margin-top: 18px;
+    }
+
+    .title-underline {
+      display: block;
+      width: 60px;
+      height: 2px;
+      background: #0b0b0b;
+      margin-top: 20px;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.6s ease 0.15s;
+      margin-bottom: 24px;
+    }
+
+    .reveal.is--visible .title-underline { transform: scaleX(1); }
+
+    /* ===== Scroll reveal ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.is--visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .cs-body {
+      font-size: 17px;
+      line-height: 1.8;
+      color: #555555;
+      max-width: 720px;
+    }
+
+    .cs-body p { margin: 0 0 20px 0; }
+    .cs-body p:last-child { margin-bottom: 0; }
+
+    .cs-body strong { color: #0b0b0b; font-weight: 600; }
+
+    .cs-punch {
+      font-size: 22px;
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+      color: #0b0b0b;
+      font-weight: 500;
+      margin: 32px 0 0 0;
+      max-width: 720px;
+    }
+
+    /* ===== Hero ===== */
+    .hero-section {
+      padding: 80px 0 96px;
+      background: #ffffff;
+    }
+
+    .hero-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .hero-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      color: #888888;
+      margin-bottom: 48px;
+      transition: color 0.3s ease, gap 0.3s ease;
+    }
+
+    .hero-back:hover { color: #ff6b6b; gap: 12px; }
+
+    .hero-tag {
+      font-size: 12px;
+      line-height: 1;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #ff6b6b;
+      font-weight: 700;
+      margin: 0 0 24px 0;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+      animation-delay: 0.05s;
+    }
+
+    .hero-title {
+      font-size: 72px;
+      line-height: 1.0;
+      letter-spacing: -0.04em;
+      font-weight: 400;
+      color: #0b0b0b;
+      margin: 0 0 28px 0;
+      max-width: 900px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards;
+      animation-delay: 0.12s;
+    }
+
+    .hero-lede {
+      font-size: 20px;
+      line-height: 1.6;
+      color: #555555;
+      max-width: 800px;
+      margin: 0 0 48px 0;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards;
+      animation-delay: 0.2s;
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      padding: 32px 0;
+      border-top: 1px solid #e5e5e5;
+      border-bottom: 1px solid #e5e5e5;
+      margin-bottom: 40px;
+    }
+
+    .hero-meta-item .label {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #999999;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .hero-meta-item .value {
+      font-size: 16px;
+      color: #0b0b0b;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    .hero-roles {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      font-size: 14px;
+      color: #888888;
+    }
+
+    .hero-roles strong { color: #0b0b0b; font-weight: 600; }
+
+    /* ===== Hero image ===== */
+    .hero-image {
+      margin-top: 56px;
+      border-radius: 12px;
+      overflow: hidden;
+      line-height: 0;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.8s ease forwards;
+      animation-delay: 0.3s;
+    }
+
+    .hero-image svg { display: block; width: 100%; height: auto; }
+
+    .hero-card {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.7s ease forwards;
+      animation-delay: calc(0.6s + var(--delay, 0s));
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    /* ===== Global animation keyframes ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-image, .hero-card, .reveal {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+
+    /* ===== Stat strip — the signature element ===== */
+    .stat-strip {
+      background: #0b0b0b;
+      padding: 0;
+    }
+
+    .stat-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .stat-item {
+      padding: 56px 24px;
+      border-right: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+      transition: background 0.3s ease;
+    }
+
+    .stat-item:hover { background: rgba(255,255,255,0.03); }
+
+    .stat-item:last-child { border-right: none; }
+
+    .stat-number {
+      font-size: 40px;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 12px;
+      transition: transform 0.3s ease;
+    }
+
+    .stat-item:hover .stat-number { transform: scale(1.05); }
+
+    .stat-number .accent { color: #ff6b6b; }
+
+    .stat-label {
+      font-size: 13px;
+      line-height: 1.5;
+      color: #999999;
+      letter-spacing: 0.02em;
+    }
+
+    /* ===== Constraint / thesis blocks ===== */
+    .thesis-block {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .thesis-quote {
+      font-size: 32px;
+      line-height: 1.35;
+      letter-spacing: -0.015em;
+      font-weight: 400;
+      color: #0b0b0b;
+      max-width: 820px;
+      margin: 0 0 32px 0;
+    }
+
+    .thesis-quote em {
+      font-style: normal;
+      color: #ff6b6b;
+    }
+
+    /* ===== Mechanism cards ===== */
+    .mech-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: #e5e5e5;
+      margin-top: 64px;
+    }
+
+    .mech-card {
+      background: #ffffff;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      min-height: 280px;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .mech-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+      position: relative;
+      z-index: 1;
+    }
+
+    .mech-label {
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #ff6b6b;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .mech-title {
+      font-size: 24px;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      font-weight: 500;
+      color: #0b0b0b;
+      margin: 0 0 16px 0;
+    }
+
+    .mech-text {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #666666;
+      margin: 0;
+      flex-grow: 1;
+    }
+
+    .mech-plain {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #0b0b0b;
+      font-weight: 500;
+      margin: 20px 0 0 0;
+      padding-top: 16px;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    /* ===== Two-up comparison rows ===== */
+    .compare-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      margin-top: 56px;
+      align-items: start;
+    }
+
+    .compare-col .compare-label {
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #999999;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .compare-col.is--accent .compare-label { color: #ff6b6b; }
+
+    .compare-col p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: #555555;
+      margin: 0;
+    }
+
+    .compare-col.is--accent p { color: #0b0b0b; font-weight: 500; }
+
+    /* ===== Outcome footer block ===== */
+    .outcome-block {
+      background: #0b0b0b;
+      padding: 96px 0;
+    }
+
+    .outcome-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .outcome-container .cs-eyebrow { color: #777777; }
+
+    .outcome-heading {
+      font-size: 40px;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      font-weight: 400;
+      color: #ffffff;
+      max-width: 760px;
+      margin: 0 0 32px 0;
+    }
+
+    .outcome-heading .accent { color: #ff6b6b; }
+
+    .outcome-body {
+      font-size: 17px;
+      line-height: 1.8;
+      color: #aaaaaa;
+      max-width: 680px;
+    }
+
+    .outcome-body p { margin: 0 0 20px 0; }
+    .outcome-body p:last-child { margin-bottom: 0; }
+
+    /* ===== Next project ===== */
+    .next-section {
+      padding: 80px 0;
+      border-top: 1px solid #e5e5e5;
+      background: #ffffff;
+    }
+
+    .next-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .next-label {
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #999999;
+    }
+
+    .next-title {
+      font-size: 36px;
+      letter-spacing: -0.02em;
+      font-weight: 400;
+      color: #0b0b0b;
+      margin-top: 8px;
+      transition: color 0.3s ease;
+    }
+
+    .next-link:hover .next-title { color: #ff6b6b; }
+
+    .next-arrow {
+      font-size: 36px;
+      color: #0b0b0b;
+      transition: transform 0.3s ease;
+    }
+
+    .next-link:hover .next-arrow { transform: translateX(8px); color: #ff6b6b; }
+
+    /* ===== Footer ===== */
+    .site-footer {
+      padding: 64px 0;
+      background: #ffffff;
+      border-top: 1px solid #e5e5e5;
+    }
+
+    .footer-container {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 60px;
+      align-items: flex-start;
+      margin-bottom: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .footer-left { max-width: 300px; }
+
+    .footer-tagline {
+      font-size: 14px;
+      line-height: 1.6;
+      letter-spacing: 0.01em;
+      color: #666666;
+      margin: 0;
+    }
+
+    .footer-nav, .footer-social {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .footer-social { justify-content: flex-end; }
+
+    .footer-link {
+      font-size: 14px;
+      letter-spacing: 0.02em;
+      color: #0b0b0b;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .footer-link:hover { color: #ff6b6b; }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .footer-copyright p, .footer-credit p {
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      color: #999999;
+      margin: 0;
+    }
+
+    /* ===== Responsive ===== */
+    @media only screen and (max-width: 1024px) {
+      .hero-title { font-size: 56px; }
+      .hero-meta { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .stat-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+      .stat-item:nth-child(2n) { border-right: 1px solid rgba(255,255,255,0.1); }
+      .mech-grid { grid-template-columns: 1fr; }
+      .compare-row { grid-template-columns: 1fr; gap: 32px; }
+      .cs-heading { font-size: 36px; }
+      .thesis-quote { font-size: 26px; }
+    }
+
+    @media only screen and (max-width: 768px) {
+      .cs-section { padding: 64px 0; }
+      .hero-section { padding: 48px 0 64px; }
+      .hero-title { font-size: 36px; }
+      .hero-lede { font-size: 17px; }
+      .hero-meta { grid-template-columns: 1fr; gap: 20px; padding: 24px 0; }
+      .cs-heading { font-size: 28px; }
+      .thesis-quote { font-size: 22px; }
+      .outcome-heading { font-size: 28px; }
+      .next-title { font-size: 24px; }
+      .footer-content { grid-template-columns: 1fr; gap: 32px; }
+      .footer-nav, .footer-social { flex-wrap: wrap; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+    }
+
+    @media only screen and (max-width: 480px) {
+      .stat-grid { grid-template-columns: 1fr; }
+      .stat-item { border-right: none !important; }
+      .hero-title { font-size: 28px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  
+  <header class="site-header">
+    <div class="site-header__inner container-xl">
+      <a href="index.html" class="site-header__logo">
+        <img src="Logo.svg" alt="Vaish logo" class="site-header__logo-img">
+      </a>
+      <nav class="site-header__nav">
+        <a href="index.html#work" class="site-header__link">Design</a>
+        <a href="index.html#writing" class="site-header__link">Writing</a>
+        <a href="index.html#experience" class="site-header__link">About</a>
+      </nav>
+      <div class="site-header__utils">
+        <a href="mailto:solankivaish22@gmail.com" class="site-header__cta">solankivaish22@gmail.com</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero-section">
+    <div class="hero-container">
+      <a href="index.html#work" class="hero-back">← Back to work</a>
+      <p class="hero-tag">Fintech · Corporate Travel</p>
+      <h1 class="hero-title">The wallet that doesn't pretend every expense is the same.</h1>
+      <p class="hero-lede">Field employees pay for business trips out of pocket, then wait weeks to get it back. TravelWallet fixes this with three mechanisms, not one, each matched to how predictable an expense actually is.</p>
+
+      <img src="project1.png" alt="Ops Ran Blind Dashboard" class="project-image">
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <span class="label">Role</span>
+          <span class="value">Product Designer</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="label">Team</span>
+          <span class="value">Cross-functional, Finance & Ops</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="label">Timeline</span>
+          <span class="value">v1.0, 2025</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="label">Scope</span>
+          <span class="value">PRD, flows, security model</span>
+        </div>
+      </div>
+
+      
+      
+    </div>
+  </section>
+
+  <!-- ===== STAT STRIP (signature element) ===== -->
+  <div class="stat-strip">
+    <div class="stat-grid">
+      <div class="stat-item">
+        <div class="stat-number"><span class="accent">90</span>%</div>
+        <div class="stat-label">of trips with zero personal spend, 6-month target</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">&lt;<span class="accent">24</span>h</div>
+        <div class="stat-label">from emergency claim approval to bank transfer</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number"><span class="accent">3</span></div>
+        <div class="stat-label">purpose-built mechanisms, one for each predictability tier</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number"><span class="accent">60</span>%</div>
+        <div class="stat-label">target reduction in month-end reconciliation time</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== THESIS ===== -->
+  <section class="cs-section">
+    <div class="cs-container reveal">
+      <p class="cs-eyebrow">— The Thesis</p>
+      <h2 class="cs-heading">You can't pre-load what you can't predict<span class="brand-dot"></span></h2>
+      <span class="title-underline"></span>
+      <div class="cs-body">
+        <p>Existing tools pick one mechanism for every expense. A hotel booking, a daily meal allowance, and a vehicle breakdown have nothing in common, except that one app tries to handle all three the same way.</p>
+        <p>I benchmarked logistics and pharma, industries that solved field-expense problems for the field years before software tried to. None of them use one wallet. <strong>They split by predictability.</strong></p>
+      </div>
+      <p class="cs-punch">That became the thesis.</p>
+    </div>
+  </section>
+
+  <!-- ===== THREE MECHANISMS ===== -->
+  <section class="cs-section is--alt is--rule">
+    <div class="cs-container reveal">
+      <p class="cs-eyebrow">— The Model</p>
+      <h2 class="cs-heading">Three mechanisms, one axis<span class="brand-dot"></span></h2>
+      <span class="title-underline"></span>
+      <div class="cs-body">
+        <p>Every expense category sits somewhere on a predictability line. The mechanism it gets is a direct function of where it sits, not a default applied to everything.</p>
+      </div>
+
+      <div class="mech-grid">
+        <div class="mech-card">
+          <div class="mech-label">High predictability</div>
+          <h3 class="mech-title">Per Diem</h3>
+          <p class="mech-text">Auto-credited to the employee's wallet the moment a trip starts. No request, no approval loop. Receipts required only above ₹500. Unused balance returns automatically at trip end. Non-transferable.</p>
+          <p class="mech-plain">In plain terms: like a daily allowance that just shows up.</p>
+        </div>
+        <div class="mech-card">
+          <div class="mech-label">Medium predictability</div>
+          <h3 class="mech-title">Advance Request</h3>
+          <p class="mech-text">Known before the trip, variable in amount. Employee requests a category, amount, and context. Finance approves the exact figure. The wallet is category-locked, so it cannot be spent anywhere else.</p>
+          <p class="mech-plain">In plain terms: ask for money before you spend it.</p>
+        </div>
+        <div class="mech-card">
+          <div class="mech-label">Low predictability</div>
+          <h3 class="mech-title">Emergency Claim</h3>
+          <p class="mech-text">Camera opens first. The amount field stays locked until a bill photo is uploaded, non-negotiable. On approval, funds move to the employee's bank account within 24 hours.</p>
+          <p class="mech-plain">In plain terms: snap the bill, then enter the amount.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== THE GUARDRAIL ===== -->
+  <section class="cs-section">
+    <div class="cs-container reveal">
+      <p class="cs-eyebrow">— The Guardrail</p>
+      <h2 class="cs-heading">A disabled field, not a policy line<span class="brand-dot"></span></h2>
+      <span class="title-underline"></span>
+
+      <div class="thesis-block" style="padding: 0; margin-top: 0;">
+        <p class="thesis-quote">"Receipts must be uploaded within 24 hours" is a sentence in an onboarding PDF nobody reads. <em>A greyed-out amount field is a sentence nobody can ignore.</em></p>
+      </div>
+
+      <div class="compare-row">
+        <div class="compare-col">
+          <span class="compare-label">The policy approach</span>
+          <p>Most expense tools enforce receipt rules as written policy, a clause employees agree to once and forget. Compliance depends on memory and goodwill.</p>
+        </div>
+        <div class="compare-col is--accent">
+          <span class="compare-label">What TravelWallet does</span>
+          <p>For Emergency Claims, the camera is the first screen. The amount input is physically disabled until a bill photo exists, so the employee cannot submit a number before proof.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHAT WAS DESIGNED AGAINST ===== -->
+  <section class="cs-section is--alt is--rule">
+    <div class="cs-container reveal">
+      <p class="cs-eyebrow">— Designed Against</p>
+      <h2 class="cs-heading">Idle money sitting in a wallet<span class="brand-dot"></span></h2>
+      <span class="title-underline"></span>
+      <div class="cs-body">
+        <p>Unused balances, per diem or advance, auto-return to the company wallet 24 hours after trip end. Per diem can't be cashed out or transferred to another account.</p>
+        <p>This wasn't about distrust. It was about making the wallet behave like a tool, not a slush fund. <strong>Every rupee that goes out has a category, an expiry, and a return path.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== OUTCOME ===== -->
+  <div class="outcome-block">
+    <div class="outcome-container reveal">
+      <p class="cs-eyebrow">— The Outcome</p>
+      <h2 class="outcome-heading">One decision, splitting the wallet by predictability instead of by role, <span class="accent">solved both sides at once.</span></h2>
+      <div class="outcome-body">
+        <p>Finance gets an inline approve/reject queue with no email digging. Emergency claims surface in red, flagged Urgent, with the bill thumbnail visible before the click.</p>
+        <p>For the employee: per diem lands automatically, advances load the moment they're approved, and emergency reimbursements move to their bank account in under 24 hours, a window that used to be measured in weeks.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== NEXT PROJECT ===== -->
+  <section class="next-section">
+    <a href="driver.html" class="next-container next-link">
+      <div>
+        <div class="next-label">Next project</div>
+        <div class="next-title">Driver App: When the Customer Goes Missing</div>
+      </div>
+      <div class="next-arrow">→</div>
+    </a>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-content">
+        <div class="footer-left">
+          <a href="index.html#intro" class="site-header__logo">
+            <img src="Logo.svg" alt="Vaish logo" class="site-header__logo-img">
+          </a>
+          <p class="footer-tagline">Product designer working on complex SaaS and AI-driven products. Open to new collaborations.</p>
+        </div>
+        <nav class="footer-nav">
+          <a href="index.html#intro" class="footer-link">Home</a>
+          <a href="index.html#work" class="footer-link">Work</a>
+          <a href="mailto:solankivaish22@gmail.com" class="footer-link">Contact</a>
+        </nav>
+        <div class="footer-social">
+          <a href="https://www.linkedin.com/in/vaishnavi-solanki-852662201/" target="_blank" class="footer-link">LinkedIn</a>
+          <a href="https://www.behance.net/vaishsolanki" target="_blank" class="footer-link">Behance</a>
+          <a href="https://medium.com/@vaishsolanki22" target="_blank" class="footer-link">Medium</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          <p>© 2026 Vaishnavi Solanki — solankivaish22@gmail.com</p>
+        </div>
+        <div class="footer-credit">
+          <p class="footer-powered">Built it too 😊 (Figma to browser)</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is--visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+      reveals.forEach(el => observer.observe(el));
+    });
+  </script>
+
+</body>
+</html>
